@@ -63,7 +63,7 @@ export default function Navbar() {
         <Button
           variant="contained"
           onClick={() => {
-            handleGoPage("/Login");
+            handleGoPage("/login");
           }}
         >
           Login

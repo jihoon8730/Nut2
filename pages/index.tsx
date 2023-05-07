@@ -1,11 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
-
 import styled from "styled-components";
 
 const MainContainer = styled.main`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   padding-top: 20px;
 `;
 
@@ -23,6 +22,8 @@ const Descrition = styled.h3`
 `;
 
 const LankSection = styled.section`
+  display: flex;
+  gap: 20px;
   width: 100%;
   height: auto;
   margin-top: 20px;
@@ -30,7 +31,9 @@ const LankSection = styled.section`
 `;
 
 const LankCard = styled.div`
-  width: 500px;
+  display: flex;
+  gap: 20px;
+  width: 40%;
   height: auto;
 `;
 
@@ -38,11 +41,19 @@ const ImageCard = styled.img`
   width: 100%;
   height: auto;
   border-radius: 8px;
-  box-shadow: 2px 2px 2px gray;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+const StyleAdd = styled.div`
+  width: 30%;
+  height: 200px;
+  background-color: #ffffff;
+  border: 1px solid #d6d4d3;
+  border-radius: 8px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
 `;
 
 export default function Home() {
-  console.log("hello");
   return (
     <>
       <Head>
@@ -65,6 +76,8 @@ export default function Home() {
           <LankCard>
             <ImageCard src="/images/fastion0.jpg" alt="패션1" />
           </LankCard>
+          <StyleAdd>Style Add</StyleAdd>
+          <StyleAdd>Style Add</StyleAdd>
         </LankSection>
       </MainContainer>
     </>
