@@ -1,4 +1,4 @@
-import React from "react";
+import { useForm } from "react-hook-form";
 
 // MUI
 import TextField from "@mui/material/TextField";
@@ -7,6 +7,9 @@ import Button, { ButtonProps } from "@mui/material/Button";
 import styled from "styled-components";
 
 export default function Login() {
+  const { register, watch } = useForm();
+  console.log(watch());
+
   return (
     <Container>
       <Back>← back</Back>
@@ -23,6 +26,7 @@ export default function Login() {
               label="Email"
               variant="outlined"
               placeholder="e.g. example@gmail.com"
+              {...register("email")}
             />
             <TextField type="password" label="Password" variant="outlined" />
             <BootstrapButton variant="contained" type="submit">
