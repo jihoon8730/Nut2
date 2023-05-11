@@ -12,7 +12,7 @@ const NavbarContainer = styled.div`
   gap: 20px;
   width: 100vw;
   height: 70px;
-  padding: 0px 30px;
+  padding: 0px 250px;
   border-bottom: 1px solid #eeeeee;
   background-color: #ffffff;
 `;
@@ -21,6 +21,7 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  margin-left: -20px;
 `;
 
 const Logo = styled.h1``;
@@ -48,14 +49,14 @@ export default function Navbar() {
               handleGoPage("/");
             }}
           >
-            Home
+            모델
           </Button>
           <Button
             onClick={() => {
               handleGoPage("/");
             }}
           >
-            Style
+            스타일
           </Button>
         </Lists>
       </Left>

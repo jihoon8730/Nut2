@@ -1,39 +1,36 @@
 import Head from "next/head";
-import Image from "next/image";
 import styled from "styled-components";
+
+// Components
+import Slick from "@/components/ui/slick";
+
+// react-slick css
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+// Mui Icon
+import SearchIcon from "@mui/icons-material/Search";
 
 const MainContainer = styled.main`
   width: 100%;
   height: 100%;
-  padding-top: 20px;
 `;
 
-const LogoSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-`;
-
-const Descrition = styled.h3`
-  font-size: 50px;
-  color: #384f93;
-`;
-
-const LankSection = styled.section`
-  display: flex;
-  gap: 20px;
+const ModelSection = styled.section`
   width: 100%;
   height: auto;
-  margin-top: 20px;
-  padding: 40px;
+  margin-top: 50px;
+  padding: 0px 230px;
 `;
 
+const CardBox = styled.div`
+  display: flex;
+  gap: 20px;
+`;
 const LankCard = styled.div`
   display: flex;
   gap: 20px;
-  width: 40%;
+  width: 25%;
   height: auto;
 `;
 
@@ -42,16 +39,39 @@ const ImageCard = styled.img`
   height: auto;
   border-radius: 8px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
 `;
 
-const StyleAdd = styled.div`
-  width: 30%;
-  height: 200px;
-  background-color: #ffffff;
-  border: 1px solid #d6d4d3;
-  border-radius: 8px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
+const StyleViewBtnSec = styled.article`
+  margin-bottom: 20px;
+  width: 100%;
 `;
+
+const ViewButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #1363df;
+  border: 0px;
+  height: 70px;
+  border-radius: 50px;
+  color: #eeeeee;
+  font-size: 20px;
+  cursor: pointer;
+`;
+
+export async function getServerSideProps() {
+  try {
+    let response = await fetch("http://localhost:3000/api/nut2");
+    let posts = await response.json();
+    return {
+      props: { posts: JSON.parse(JSON.stringify(posts)) },
+    };
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 export default function Home() {
   return (
@@ -63,22 +83,25 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainContainer>
-        <LogoSection>
-          <Image
-            src="/images/nut.png"
-            alt="Nut메인 이미지"
-            width={430}
-            height={300}
-          />
-          <Descrition>Style community Nut2</Descrition>
-        </LogoSection>
-        <LankSection>
-          <LankCard>
-            <ImageCard src="/images/fastion0.jpg" alt="패션1" />
-          </LankCard>
-          <StyleAdd>Style Add</StyleAdd>
-          <StyleAdd>Style Add</StyleAdd>
-        </LankSection>
+        <div>
+          <Slick />
+        </div>
+
+        <ModelSection>
+          <StyleViewBtnSec>
+            <ViewButton>
+              <SearchIcon /> 모델 스타일 보러가기
+            </ViewButton>
+          </StyleViewBtnSec>
+          <CardBox>
+            <LankCard>
+              <ImageCard src="/images/fastion0.jpg" alt="패션1" />
+            </LankCard>
+            <LankCard>
+              <ImageCard src="/images/fastion0.jpg" alt="패션1" />
+            </LankCard>
+          </CardBox>
+        </ModelSection>
       </MainContainer>
     </>
   );
