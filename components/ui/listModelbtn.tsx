@@ -34,7 +34,7 @@ export default function ListModelbtn() {
     >
       <ViewButton>
         <SearchIcon />
-        모델 스타일 보러가기
+        &nbsp; 모델 보러가기
       </ViewButton>
     </StyleViewBtnSec>
   );

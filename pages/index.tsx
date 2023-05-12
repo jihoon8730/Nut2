@@ -8,8 +8,8 @@ import Slick from "@/components/ui/slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Mui Icon
-import SearchIcon from "@mui/icons-material/Search";
+import clientPromise from "@/lib/mongodb";
+import ListModelbtn from "@/components/ui/listModelbtn";
 
 const MainContainer = styled.main`
   width: 100%;
@@ -29,7 +29,8 @@ const CardBox = styled.div`
 `;
 const LankCard = styled.div`
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
   width: 25%;
   height: auto;
 `;
@@ -37,43 +38,21 @@ const LankCard = styled.div`
 const ImageCard = styled.img`
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   object-fit: cover;
 `;
 
-const StyleViewBtnSec = styled.article`
-  margin-bottom: 20px;
-  width: 100%;
-`;
-
-const ViewButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  background-color: #1363df;
-  border: 0px;
-  height: 70px;
-  border-radius: 50px;
-  color: #eeeeee;
-  font-size: 20px;
-  cursor: pointer;
-`;
-
-export async function getServerSideProps() {
-  try {
-    let response = await fetch("http://localhost:3000/api/nut2");
-    let posts = await response.json();
-    return {
-      props: { posts: JSON.parse(JSON.stringify(posts)) },
-    };
-  } catch (e) {
-    console.error(e);
-  }
+interface postsType {
+  _id: string;
+  userId: string;
+  name: string;
+  age: string;
+  snsId: string;
+  email: string;
 }
-
-export default function Home() {
+export default function Home({ posts }: any) {
+  console.log(posts);
   return (
     <>
       <Head>
@@ -88,21 +67,36 @@ export default function Home() {
         </div>
 
         <ModelSection>
-          <StyleViewBtnSec>
-            <ViewButton>
-              <SearchIcon /> 모델 스타일 보러가기
-            </ViewButton>
-          </StyleViewBtnSec>
+          <ListModelbtn />
           <CardBox>
-            <LankCard>
-              <ImageCard src="/images/fastion0.jpg" alt="패션1" />
-            </LankCard>
-            <LankCard>
-              <ImageCard src="/images/fastion0.jpg" alt="패션1" />
-            </LankCard>
+            {posts.map(({ snsId, age }: postsType, i: number) => {
+              return (
+                <LankCard key={i}>
+                  <ImageCard src="/images/fastion0.jpg" alt="패션1" />
+                  <h4>
+                    @ {snsId} / {age}
+                  </h4>
+                </LankCard>
+              );
+            })}
           </CardBox>
         </ModelSection>
       </MainContainer>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const client = await clientPromise;
+    const db = client.db("nut2");
+
+    const posts = await db.collection("models").find({}).limit(4).toArray();
+
+    return {
+      props: { posts: JSON.parse(JSON.stringify(posts)) },
+    };
+  } catch (e) {
+    console.error(e);
+  }
 }
