@@ -46,7 +46,7 @@ export default function Navbar() {
         <Lists>
           <Button
             onClick={() => {
-              handleGoPage("/");
+              handleGoPage("/list");
             }}
           >
             모델

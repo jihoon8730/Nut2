@@ -12,9 +12,8 @@ export default function Login() {
 
   return (
     <Container>
-      <Back>← back</Back>
       <SigninContainer>
-        <Title>Login</Title>
+        <Title>로그인</Title>
         <BodyBox>
           <HrBox>
             <Line />

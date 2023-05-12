@@ -5,6 +5,7 @@ import styled from "styled-components";
 const StyledSlider = styled(Slider)``;
 
 const ImageBox = styled.section`
+  position: relative;
   padding: 30px;
 `;
 
@@ -13,6 +14,14 @@ const Images = styled.img`
   height: 400px;
   object-fit: cover;
   border-radius: 6px;
+`;
+
+const Title = styled.div`
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  font-size: 4vw;
+  font-weight: 700;
 `;
 
 export default function Slick() {
@@ -35,7 +44,9 @@ export default function Slick() {
       <StyledSlider {...settings}>
         <ImageBox>
           <Images src="/images/slick02.jpg" alt="Nut메인 이미지" />
+          <Title>Model & Style</Title>
         </ImageBox>
+
         <ImageBox>
           <Images src="/images/slick01.jpg" alt="Nut메인 이미지" />
         </ImageBox>
