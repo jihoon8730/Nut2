@@ -34,10 +34,10 @@ export default function Slick() {
     <div>
       <StyledSlider {...settings}>
         <ImageBox>
-          <Images src="/images/slick01.jpg" alt="Nut메인 이미지" />
+          <Images src="/images/slick02.jpg" alt="Nut메인 이미지" />
         </ImageBox>
         <ImageBox>
-          <Images src="/images/slick02.jpg" alt="Nut메인 이미지" />
+          <Images src="/images/slick01.jpg" alt="Nut메인 이미지" />
         </ImageBox>
         <ImageBox>
           <Images src="/images/slick03.jpg" alt="Nut메인 이미지" />
