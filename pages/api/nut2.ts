@@ -1,7 +1,7 @@
 import clientPromise from "../../lib/mongodb";
 import type { NextApiResponse, NextApiRequest } from "next";
 
-export default async function Movies(req:NextApiRequest, res:NextApiResponse) {
+export default async function Nut(req:NextApiRequest, res:NextApiResponse) {
 try {
     const client = await clientPromise;
     const db = client.db("nut2");
