@@ -47,16 +47,6 @@ const Container = styled.div`
   margin: 50px auto;
 `;
 
-const Back = styled.button`
-  width: 79px;
-  height: 32px;
-  border: 0px;
-  background-color: transparent;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-`;
-
 const SigninContainer = styled.article`
   display: flex;
   flex-direction: column;
