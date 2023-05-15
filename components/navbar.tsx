@@ -46,6 +46,13 @@ export default function Navbar() {
         <Lists>
           <Button
             onClick={() => {
+              handleGoPage("/");
+            }}
+          >
+            홈
+          </Button>
+          <Button
+            onClick={() => {
               handleGoPage("/list");
             }}
           >
