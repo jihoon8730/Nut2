@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
+import { InferGetServerSidePropsType } from "next";
 
 // Components
 import Slick from "@/components/ui/slick";
@@ -11,47 +12,17 @@ import "slick-carousel/slick/slick-theme.css";
 import clientPromise from "@/lib/mongodb";
 import ListModelbtn from "@/components/ui/listModelbtn";
 
-const MainContainer = styled.main`
-  width: 100%;
-  height: 100%;
-`;
-
-const ModelSection = styled.section`
-  width: 100%;
-  height: auto;
-  margin-top: 50px;
-  padding: 0px 230px;
-`;
-
-const CardBox = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-const LankCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 25%;
-  height: auto;
-`;
-
-const ImageCard = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  object-fit: cover;
-`;
-
 interface postsType {
   _id: string;
   userId: string;
   name: string;
-  age: string;
+  userAge: string;
   snsId: string;
   email: string;
 }
-export default function Home({ posts }: any) {
+export default function Home({
+  posts,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   console.log(posts);
   return (
     <>
@@ -68,13 +39,14 @@ export default function Home({ posts }: any) {
 
         <ModelSection>
           <ListModelbtn />
+          <BestStyle>BEST Model</BestStyle>
           <CardBox>
-            {posts.map(({ snsId, age }: postsType, i: number) => {
+            {posts.map(({ snsId, userAge }: postsType, i: number) => {
               return (
                 <LankCard key={i}>
                   <ImageCard src="/images/fastion0.jpg" alt="패션1" />
                   <h4>
-                    @ {snsId} / {age}
+                    @ {snsId} / {userAge}
                   </h4>
                 </LankCard>
               );
@@ -100,3 +72,44 @@ export async function getServerSideProps() {
     console.error(e);
   }
 }
+
+const MainContainer = styled.main`
+  width: 100%;
+  height: 100%;
+`;
+
+const ModelSection = styled.section`
+  width: 100%;
+  height: auto;
+  margin-top: 50px;
+  padding: 0px 230px;
+`;
+
+const BestStyle = styled.h4`
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+  font-size: ${({ theme }) => theme.fontSize.mainTitle};
+`;
+
+const CardBox = styled.div`
+  display: flex;
+  gap: 20px;
+  margin-top: 16px;
+`;
+const LankCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 25%;
+  height: auto;
+`;
+
+const ImageCard = styled.img`
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  border-radius: 6px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+`;

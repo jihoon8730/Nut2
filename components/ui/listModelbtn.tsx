@@ -19,7 +19,7 @@ const ViewButton = styled.button`
   height: 70px;
   border-radius: 50px;
   color: #eeeeee;
-  font-size: 20px;
+  font-size: 1.2rem;
   cursor: pointer;
 `;
 

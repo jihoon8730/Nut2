@@ -12,6 +12,7 @@ const ImageBox = styled.section`
 const Images = styled.img`
   width: 100%;
   height: 400px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 6px;
 `;
@@ -32,7 +33,7 @@ export default function Slick() {
     centerMode: true,
     centerPadding: "200px",
     speed: 500,
-    // autoplay: true,
+    autoplay: true,
     autoplayspeed: 1500,
     slidesToShow: 1,
     slidesToScroll: 1,
