@@ -1,6 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  html,
+  body{
+  width:100%;
+  overflow-x:hidden;
+  }
+
   * {
     margin: 0;
     padding: 0;
