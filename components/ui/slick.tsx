@@ -11,7 +11,7 @@ const ImageBox = styled.section`
 
 const Images = styled.img`
   width: 100%;
-  height: 400px;
+  height: 350px;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 6px;
