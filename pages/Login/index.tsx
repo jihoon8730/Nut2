@@ -1,20 +1,30 @@
 import { useForm } from "react-hook-form";
 
+import { useSession } from "next-auth/react";
+
 // MUI
 import TextField from "@mui/material/TextField";
 import Button, { ButtonProps } from "@mui/material/Button";
 
 import styled from "styled-components";
+import SocialBtn from "./component/SocialBtn";
 
 export default function Login() {
   const { register, watch } = useForm();
-  console.log(watch());
+
+  // 로그인 정보 값
+  const { data: session, status } = useSession();
+  console.log(session);
 
   return (
     <Container>
       <SigninContainer>
         <Title>로그인</Title>
         <BodyBox>
+          <SocialLoginBox>
+            <SocialBtn text={"google"} />
+            <SocialBtn text={"github"} />
+          </SocialLoginBox>
           <HrBox>
             <Line />
             <Or>or</Or>
@@ -81,6 +91,14 @@ const BodyBox = styled.div`
   width: 360px;
   height: 408px;
   margin-top: 24px;
+`;
+
+const SocialLoginBox = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  height: auto;
 `;
 
 const HrBox = styled.article`

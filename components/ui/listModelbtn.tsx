@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 // Mui Icon
 import SearchIcon from "@mui/icons-material/Search";
+import AddIcon from "@mui/icons-material/Add";
 
 const StyleViewBtnSec = styled.article`
   margin-bottom: 20px;
@@ -21,20 +22,25 @@ const ViewButton = styled.button`
   color: #eeeeee;
   font-size: 1.2rem;
   cursor: pointer;
+  transition: all 0.3s;
+
+  :hover {
+    background-color: #154dbd;
+  }
 `;
 
-export default function ListModelbtn() {
+export default function ListModelbtn(props: { link: string; title: string }) {
   const router = useRouter();
 
   return (
     <StyleViewBtnSec
       onClick={() => {
-        router.push("/list");
+        router.push(`/${props.link}`);
       }}
     >
       <ViewButton>
-        <SearchIcon />
-        &nbsp; 모델 보러가기
+        {props.link === "/list" ? <SearchIcon /> : <AddIcon />}
+        &nbsp;{props.title}
       </ViewButton>
     </StyleViewBtnSec>
   );

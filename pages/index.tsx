@@ -38,7 +38,11 @@ export default function Home({
         </div>
 
         <ModelSection>
-          <ListModelbtn />
+          <LinkButtonBox>
+            <ListModelbtn link={"/list"} title={"모델 스타일 보러가기"} />
+            <ListModelbtn link={"/post"} title={"모델 등록하기"} />
+          </LinkButtonBox>
+
           <BestStyle>BEST Model</BestStyle>
           <CardBox>
             {posts.map(({ snsId, userAge }: postsType, i: number) => {
@@ -52,6 +56,7 @@ export default function Home({
               );
             })}
           </CardBox>
+          <BestStyle>Models waiting to be contacted</BestStyle>
         </ModelSection>
       </MainContainer>
     </>
@@ -83,6 +88,11 @@ const ModelSection = styled.section`
   height: auto;
   margin-top: 50px;
   padding: 0px 230px;
+`;
+
+const LinkButtonBox = styled.div`
+  display: flex;
+  gap: 24px;
 `;
 
 const BestStyle = styled.h4`
