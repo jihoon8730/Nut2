@@ -7,6 +7,7 @@ import {
 
 // data
 import koreaFamousFashionShops from "@/data/shopping";
+import { useSession } from "next-auth/react";
 
 import styled from "styled-components";
 
@@ -22,14 +23,16 @@ export default function Post() {
     mode: "onChange",
   });
 
+  const { data: session } = useSession();
+  console.log(session);
+
   const onSubmit: SubmitHandler<FieldValues> = (userData) => {
     console.log(userData);
-    const { userName, userAge, snsId, userEmail, fashionShop } = userData;
+    const { userAge, snsId, fashionShop } = userData;
     axios
       .post("/api/nut2post", {
-        userName: userName,
+        userName: session?.user?.name,
         userAge: userAge,
-        email: userEmail,
         snsId: snsId,
         fashionShop: fashionShop,
       })
@@ -56,12 +59,9 @@ export default function Post() {
           <InputSubmit onSubmit={handleSubmit(onSubmit)}>
             <NameAgeBox>
               <Inputs
-                label="이름"
                 variant="outlined"
-                placeholder="이름을 입력해 주세요."
-                {...register("userName", {
-                  required: "SNS 계정을 입력해 주세요",
-                })}
+                value={session?.user?.name}
+                disabled={true}
               />
               <Inputs
                 label="나이"
@@ -72,7 +72,6 @@ export default function Post() {
                 })}
               />
             </NameAgeBox>
-
             <Inputs
               label="SNS 계정 (인스타그램)"
               variant="outlined"
@@ -80,12 +79,6 @@ export default function Post() {
               {...register("snsId", {
                 required: "SNS 계정을 입력해 주세요",
               })}
-            />
-            <Inputs
-              label="이메일"
-              variant="outlined"
-              placeholder="연락드릴 이메일을 입력해 주세요"
-              {...register("userEmail")}
             />
 
             <Controller
