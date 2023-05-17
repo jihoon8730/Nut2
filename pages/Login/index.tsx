@@ -22,6 +22,7 @@ export default function Login() {
         <Title>로그인</Title>
         <BodyBox>
           <SocialLoginBox>
+            <SocialBtn text={"kakao"} />
             <SocialBtn text={"google"} />
             <SocialBtn text={"github"} />
           </SocialLoginBox>
