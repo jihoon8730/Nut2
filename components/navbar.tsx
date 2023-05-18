@@ -15,6 +15,15 @@ export default function Navbar() {
   const handleGoPage = (pages: string) => {
     router.push(pages);
   };
+
+  const handleLogout = () => {
+    let logoutConfirm = window.confirm("로그아웃 할까요?");
+    if (logoutConfirm) {
+      signOut({ callbackUrl: "/login" });
+    } else {
+      return false;
+    }
+  };
   return (
     <NavbarContainer>
       <Left>
@@ -59,13 +68,7 @@ export default function Navbar() {
         )}
 
         {session ? (
-          <Button
-            onClick={() => {
-              signOut();
-            }}
-          >
-            로그아웃
-          </Button>
+          <Button onClick={handleLogout}>로그아웃</Button>
         ) : (
           <Button
             variant="contained"
