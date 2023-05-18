@@ -1,21 +1,25 @@
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import { InferGetServerSidePropsType } from "next";
+import Comment from "./component/Comment";
 
 export default function Detail({
   detail,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   console.log(detail);
 
-  const { age, email, name, snsId, userId, _id } = detail;
+  const { useAge, author, userName, snsId, fashionShop } = detail;
   return (
-    <div>
-      <p>{age}</p>
-      <p>{email}</p>
-      <p>{name}</p>
-      <p>{snsId}</p>
-      <p>{userId}</p>
-    </div>
+    <>
+      <div>
+        <p>{useAge}</p>
+        <p>{author}</p>
+        <p>{userName}</p>
+        <p>{snsId}</p>
+        <p>{fashionShop?.label}</p>
+        <Comment />
+      </div>
+    </>
   );
 }
 
