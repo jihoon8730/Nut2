@@ -1,20 +1,56 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-
 import { useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
+
+import SocialBtn from "./component/SocialBtn";
 
 // MUI
 import TextField from "@mui/material/TextField";
 import Button, { ButtonProps } from "@mui/material/Button";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  Alert,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
 
 import styled from "styled-components";
-import SocialBtn from "./component/SocialBtn";
 
 export default function Login() {
-  const { register, watch } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useForm({ mode: "onChange" });
 
   // 로그인 정보 값
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   console.log(session);
+  console.log(watch());
+
+  let email = watch("email");
+  let password = watch("password");
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
+  // 이메일 정규식 유효성 검사 변수 입니다
+  const emailPattern = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+
+  // 비밀번호 정규식 유효성 검사 변수 입니다
+  const passwordPattern = new RegExp(
+    "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$"
+  );
 
   return (
     <Container>
@@ -32,15 +68,72 @@ export default function Login() {
             <Line />
           </HrBox>
           <InputBox>
-            <TextField
-              label="Email"
-              variant="outlined"
-              placeholder="e.g. example@gmail.com"
-              {...register("email")}
-            />
-            <TextField type="password" label="Password" variant="outlined" />
-            <BootstrapButton variant="contained" type="submit">
-              Login
+            <TextFields>
+              <TextField
+                label="이메일"
+                variant="outlined"
+                placeholder="e.g. example@gmail.com"
+                {...register("email", {
+                  required: "이메일을 입력해 주세요",
+                  pattern: {
+                    value: emailPattern,
+                    message: "올바른 이메일 형식을 확인해 주세요",
+                  },
+                })}
+              />
+              {errors.email?.message ? (
+                <Alert severity="error">
+                  {errors?.email?.message as string}
+                </Alert>
+              ) : null}
+            </TextFields>
+            <TextFields>
+              <InputLabel htmlFor="outlined-adornment-password">
+                비밀번호
+              </InputLabel>
+              <OutlinedInput
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="비밀번호"
+                placeholder="EX) 영문, 숫자, 특수기호 조합 8자리 이상"
+                {...register("password", {
+                  required: "비밀번호를 입력해 주세요",
+                  pattern: {
+                    value: passwordPattern,
+                    message: "영문, 숫자, 특수기호 조합 8자리를 확인해 주세요",
+                  },
+                })}
+              />
+
+              {errors.password?.message && (
+                <Alert severity="error">
+                  {errors?.password?.message as string}
+                </Alert>
+              )}
+            </TextFields>
+            <BootstrapButton
+              variant="contained"
+              type="submit"
+              onClick={() => {
+                signIn("email-password-credential", {
+                  email,
+                  password,
+                  callbackUrl: "/",
+                });
+              }}
+            >
+              로그인
             </BootstrapButton>
           </InputBox>
         </BodyBox>
@@ -54,7 +147,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 8px;
   width: 552px;
-  height: 744px;
+  height: auto;
   margin: 50px auto;
 `;
 
@@ -63,7 +156,7 @@ const SigninContainer = styled.article`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 552px;
+  width: auto;
   height: 704px;
   padding: 56px 24px;
   border: 1px solid #dfdfdf;
@@ -90,7 +183,7 @@ const BodyBox = styled.div`
   padding: 0px;
   gap: 16px;
   width: 360px;
-  height: 408px;
+  height: auto;
   margin-top: 24px;
 `;
 
@@ -124,9 +217,15 @@ const Or = styled.p`
 const InputBox = styled.article`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   width: 360px;
-  height: 216px;
+  height: auto;
+`;
+
+const TextFields = styled(FormControl)`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
 const BootstrapButton = styled(Button)<ButtonProps>`
