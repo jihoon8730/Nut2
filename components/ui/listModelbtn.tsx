@@ -29,18 +29,18 @@ const ViewButton = styled.button`
   }
 `;
 
-export default function ListModelbtn(props: { link: string; title: string }) {
+export default function ListModelbtn() {
   const router = useRouter();
 
   return (
     <StyleViewBtnSec
       onClick={() => {
-        router.push(`/${props.link}`);
+        router.push("/list");
       }}
     >
       <ViewButton>
-        {props.link === "/list" ? <SearchIcon /> : <AddIcon />}
-        &nbsp;{props.title}
+        <SearchIcon />
+        &nbsp; 모델 스타일 보러가기
       </ViewButton>
     </StyleViewBtnSec>
   );

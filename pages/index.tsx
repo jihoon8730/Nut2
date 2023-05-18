@@ -2,6 +2,8 @@ import Head from "next/head";
 import styled from "styled-components";
 import { InferGetServerSidePropsType } from "next";
 
+import { useSession } from "next-auth/react";
+
 // Components
 import Slick from "@/components/ui/slick";
 
@@ -11,6 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import clientPromise from "@/lib/mongodb";
 import ListModelbtn from "@/components/ui/listModelbtn";
+import Postmodelbtn from "@/components/ui/postModelbtn";
 
 interface postsType {
   _id: string;
@@ -23,6 +26,8 @@ interface postsType {
 export default function Home({
   posts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { data: session } = useSession();
+  console.log("session", session);
   console.log(posts);
   return (
     <>
@@ -39,8 +44,8 @@ export default function Home({
 
         <ModelSection>
           <LinkButtonBox>
-            <ListModelbtn link={"/list"} title={"모델 스타일 보러가기"} />
-            <ListModelbtn link={"/post"} title={"모델 등록하기"} />
+            <ListModelbtn />
+            <Postmodelbtn />
           </LinkButtonBox>
 
           <BestStyle>BEST Model</BestStyle>
