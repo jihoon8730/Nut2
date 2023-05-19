@@ -90,6 +90,7 @@ const NavbarContainer = styled.div`
   align-items: center;
   gap: 20px;
   width: 100vw;
+  min-width: 1000px;
   height: 70px;
   padding: 0px 250px;
   border-bottom: 1px solid #eeeeee;

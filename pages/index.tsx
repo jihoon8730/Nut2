@@ -86,10 +86,12 @@ export async function getServerSideProps() {
 const MainContainer = styled.main`
   width: 100%;
   height: 100%;
+  min-width: 1000px;
 `;
 
 const ModelSection = styled.section`
-  width: 100%;
+  width: 100vw;
+  min-width: 1000px;
   height: auto;
   margin-top: 50px;
   padding: 0px 230px;

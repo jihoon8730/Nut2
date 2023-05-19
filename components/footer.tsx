@@ -20,8 +20,10 @@ export default function Footer() {
 
 const FooterContainer = styled.footer`
   width: 100%;
+  min-width: 1000px;
   height: 200px;
   padding: 32px 230px;
+  margin-top: 100px;
   background-color: #252525;
   border-top: 1px solid #eeeeee;
   background-color: #ffffff;
@@ -30,7 +32,7 @@ const FooterContainer = styled.footer`
 const FooterInfoBox = styled.div`
   display: flex;
   align-items: center;
-  gap: 200px;
+  gap: 100px;
   border-bottom: 1px solid #eeeeee;
   padding: 20px 0px;
 `;
@@ -41,7 +43,7 @@ const Title = styled.h4`
 
 const GoLinks = styled.div`
   display: flex;
-  gap: 10rem;
+  gap: 20%;
   width: 100%;
 `;
 
