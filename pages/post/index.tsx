@@ -30,7 +30,7 @@ export default function Post() {
     console.log(userData);
     const { userAge, snsId, fashionShop } = userData;
     axios
-      .post("/api/nut2post", {
+      .post("/api/post/nut2post", {
         userName: session?.user?.name,
         userAge: userAge,
         snsId: snsId,
