@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import {
   Avatar,
@@ -26,8 +27,10 @@ interface listType {
 }
 
 export default function Listitem({ lists }: any) {
-  console.log(lists);
+  console.log("lists", lists);
   const router = useRouter();
+  const { data: session } = useSession();
+  console.log("session", session);
 
   return (
     <>
@@ -46,32 +49,35 @@ export default function Listitem({ lists }: any) {
                   </Avatar>
                 }
                 action={
-                  <IconButton>
-                    <DeleteIcon
-                      onClick={() => {
-                        const isDelete =
-                          window.confirm("정말 삭제 하시겠습니까?");
-                        if (isDelete) {
-                          axios
-                            .post("/api/nut2delete", { body: _id })
-                            .then((res) => {
-                              console.log(res);
-                              router.reload();
-                            })
-                            .catch((error) => {
-                              console.log(error);
-                            });
-                        }
-                      }}
-                    />
-                  </IconButton>
+                  session?.user?.email === avatar ||
+                  session?.user?.email === "admin1234@gmail.com" ? (
+                    <IconButton>
+                      <DeleteIcon
+                        onClick={() => {
+                          const isDelete =
+                            window.confirm("정말 삭제 하시겠습니까?");
+                          if (isDelete) {
+                            axios
+                              .post("/api/delete/nut2delete", { body: _id })
+                              .then((res) => {
+                                console.log(res);
+                                router.reload();
+                              })
+                              .catch((error) => {
+                                console.log(error);
+                              });
+                          }
+                        }}
+                      />
+                    </IconButton>
+                  ) : null
                 }
                 title={`@ ${snsId}`}
                 subheader="September 14, 2016"
               />
               <CardMedia
                 component="img"
-                height="350px"
+                height="30vh"
                 image="./images/fastion0.jpg"
                 alt="Fashion Images"
                 onClick={() => {
@@ -86,11 +92,6 @@ export default function Listitem({ lists }: any) {
                   along with the mussels, if you like.
                 </Typography>
               </CardContent>
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-              </CardActions>
             </Card>
           </>
         );
