@@ -23,7 +23,7 @@ export default function List({
           "& > :not(style)": { width: "99%" },
         }}
       >
-        <TextField
+        <ModelTextField
           id="outlined-basic"
           variant="outlined"
           label="원하는 모델을 검색해 보세요"
@@ -52,8 +52,7 @@ export async function getServerSideProps() {
 }
 
 const ListContainer = styled.section`
-  width: 100%;
-  height: 100%;
+  height: auto;
   padding: 0px 230px;
 `;
 
@@ -61,11 +60,13 @@ const ModelTextFieldBox = styled(Box)`
   margin-top: 20px;
 `;
 
+const ModelTextField = styled(TextField)``;
+
 const ModelCardList = styled.section`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  width: 100%;
+  width: 100vw;
   height: auto;
   margin-top: 20px;
 `;

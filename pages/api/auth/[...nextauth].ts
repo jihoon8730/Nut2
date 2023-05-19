@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
-    // 4. jwt 만들 때 실행되는 코드 
+    // jwt 만들 때 실행되는 코드 
     jwt: async ({ token, user }:any) => {
       if (user) {
         token.user = {};
@@ -72,14 +72,14 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    //5. 유저 세션이 조회될 때 마다 실행되는 코드
+    // 유저 세션이 조회될 때 마다 실행되는 코드
     session: async ({ session, token }:any) => {
       session.user = token.user;  
       return session;
     },
   },
 
-  secret: "wlgns123",
+  secret: process.env.SECRET_KEY,
   adapter : MongoDBAdapter(clientPromise)
 };
 export default NextAuth(authOptions);
